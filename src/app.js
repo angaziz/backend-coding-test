@@ -5,9 +5,13 @@ const app = express();
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+const packageJson = require('../package.json');
 
 module.exports = (db) => {
-    app.get('/health', (req, res) => res.send('Healthy'));
+    app.get('/health', (_req, res) => res.send({
+        name: packageJson.name,
+        version: packageJson.version,
+    }));
 
     app.post('/rides', jsonParser, (req, res) => {
         const startLatitude = Number(req.body.start_lat);
