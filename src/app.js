@@ -5,18 +5,22 @@ const app = express();
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+const packageJson = require('../package.json');
 
 module.exports = (db) => {
-    app.get('/health', (req, res) => res.send('Healthy'));
+    app.get('/health', (_req, res) => res.send({
+        name: packageJson.name,
+        version: packageJson.version,
+    }));
 
     app.post('/rides', jsonParser, (req, res) => {
-        const startLatitude = Number(req.body.start_lat);
-        const startLongitude = Number(req.body.start_long);
-        const endLatitude = Number(req.body.end_lat);
-        const endLongitude = Number(req.body.end_long);
-        const riderName = req.body.rider_name;
-        const driverName = req.body.driver_name;
-        const driverVehicle = req.body.driver_vehicle;
+        const startLatitude = Number(req.body.startLat);
+        const startLongitude = Number(req.body.startLong);
+        const endLatitude = Number(req.body.endLat);
+        const endLongitude = Number(req.body.endLong);
+        const riderName = req.body.riderName;
+        const driverName = req.body.driverName;
+        const driverVehicle = req.body.driverVehicle;
 
         if (startLatitude < -90 || startLatitude > 90 || startLongitude < -180 || startLongitude > 180) {
             return res.send({
@@ -53,7 +57,7 @@ module.exports = (db) => {
             });
         }
 
-        var values = [req.body.start_lat, req.body.start_long, req.body.end_lat, req.body.end_long, req.body.rider_name, req.body.driver_name, req.body.driver_vehicle];
+        var values = [req.body.startLat, req.body.startLong, req.body.endLat, req.body.endLong, req.body.riderName, req.body.driverName, req.body.driverVehicle];
         
         const result = db.run('INSERT INTO Rides(startLat, startLong, endLat, endLong, riderName, driverName, driverVehicle) VALUES (?, ?, ?, ?, ?, ?, ?)', values, function (err) {
             if (err) {
@@ -71,7 +75,7 @@ module.exports = (db) => {
                     });
                 }
 
-                res.send(rows);
+                res.send(rows[0]);
             });
         });
     });
@@ -96,8 +100,8 @@ module.exports = (db) => {
         });
     });
 
-    app.get('/rides/:id', (req, res) => {
-        db.all(`SELECT * FROM Rides WHERE rideID='${req.params.id}'`, function (err, rows) {
+    app.get('/rides/:rideId', (req, res) => {
+        db.all(`SELECT * FROM Rides WHERE rideID='${req.params.rideId}'`, function (err, rows) {
             if (err) {
                 return res.send({
                     error_code: 'SERVER_ERROR',
@@ -112,7 +116,7 @@ module.exports = (db) => {
                 });
             }
 
-            res.send(rows);
+            res.send(rows[0]);
         });
     });
 
