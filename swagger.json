@@ -1,0 +1,227 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API Doc for Xendit coding exercise.",
+    "version": "1.0.0",
+    "title": "Xendit Coding Exercise",
+    "contact": {
+      "email": "anggieaziz@gmail.com"
+    },
+    "license": {
+      "name": "UNLICENSED",
+      "url": "http://medium.com/@angaziz"
+    }
+  },
+  "host": "0.0.0.0:8010",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Health Check",
+      "description": ""
+    },
+    {
+      "name": "Rides",
+      "description": ""
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "Health Check"
+        ],
+        "summary": "Server's availability",
+        "description": "",
+        "operationId": "getHealthCheck",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/GetHealthCheckResponseSuccess"
+            }
+          }
+        }
+      }
+    },
+    "/rides": {
+      "post": {
+        "tags": [
+          "Rides"
+        ],
+        "summary": "Create a new ride",
+        "description": "",
+        "operationId": "createRide",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateRideRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CreateRideResponseSuccess"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Rides"
+        ],
+        "summary": "List of ride",
+        "description": "",
+        "operationId": "getRides",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ListRideResponseSuccess"
+            }
+          }
+        }
+      }
+    },
+    "/rides/{rideID}": {
+      "get": {
+        "tags": [
+          "Rides"
+        ],
+        "summary": "Ride details by ride ID",
+        "description": "",
+        "operationId": "getRideDetail",
+        "parameters": [
+          {
+            "name": "rideID",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DetailRideResponseSuccess"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "GetHealthCheckResponseSuccess": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "backend-coding-test"
+        },
+        "version": {
+          "type": "string",
+          "example": "1.0.0"
+        }
+      }
+    },
+    "RideData": {
+      "type": "object",
+      "properties": {
+        "rideID": {
+          "type": "integer",
+          "example": 123
+        },
+        "startLat": {
+          "type": "number",
+          "example": -6.21873
+        },
+        "startLong": {
+          "type": "number",
+          "example": 106.82376
+        },
+        "endLat": {
+          "type": "number",
+          "example": -6.229807
+        },
+        "endLong": {
+          "type": "number",
+          "example": 106.827727
+        },
+        "riderName": {
+          "type": "string",
+          "example": "Anggie Aziz"
+        },
+        "driverName": {
+          "type": "string",
+          "example": "Yusuf Triwanto"
+        },
+        "driverVehicle": {
+          "type": "string",
+          "example": "Ducati Multistrada 1260"
+        },
+        "created": {
+          "type": "string",
+          "example": "2019-10-03 23:44:21"
+        }
+      }
+    },
+    "CreateRideRequest": {
+      "type": "object",
+      "properties": {
+        "startLat": {
+          "type": "number",
+          "example": -6.21873
+        },
+        "startLong": {
+          "type": "number",
+          "example": 106.82376
+        },
+        "endLat": {
+          "type": "number",
+          "example": -6.229807
+        },
+        "endLong": {
+          "type": "number",
+          "example": 106.827727
+        },
+        "riderName": {
+          "type": "string",
+          "example": "Anggie Aziz"
+        },
+        "driverName": {
+          "type": "string",
+          "example": "Yusuf Triwanto"
+        },
+        "driverVehicle": {
+          "type": "string",
+          "example": "Ducati Multistrada 1260"
+        }
+      }
+    },
+    "CreateRideResponseSuccess": {
+      "$ref": "#/definitions/RideData"
+    },
+    "ListRideResponseSuccess": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/RideData"
+      }
+    },
+    "DetailRideResponseSuccess": {
+      "$ref": "#/definitions/RideData"
+    }
+  },
+  "externalDocs": {
+    "description": "More about the requirements",
+    "url": "https://drive.google.com/file/d/1lh8M6jP4omCrapS01K4GMr2Sx6mhxxF8/view?usp=sharing"
+  }
+}

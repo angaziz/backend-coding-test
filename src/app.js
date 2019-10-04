@@ -100,8 +100,8 @@ module.exports = (db) => {
         });
     });
 
-    app.get('/rides/:rideId', (req, res) => {
-        db.all(`SELECT * FROM Rides WHERE rideID='${req.params.rideId}'`, function (err, rows) {
+    app.get('/rides/:rideID', (req, res) => {
+        db.all(`SELECT * FROM Rides WHERE rideID='${req.params.rideID}'`, function (err, rows) {
             if (err) {
                 return res.send({
                     error_code: 'SERVER_ERROR',
