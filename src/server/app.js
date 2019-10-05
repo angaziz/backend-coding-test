@@ -28,7 +28,7 @@ module.exports = async () => {
     if (err instanceof HttpError) {
       return res.status(err.httpCode).json(err.getBody());
     }
-    
+
     return res.status(500).json({
       errorCode: 'INTERNAL_SERVER',
       message: 'Please contact us for further support',

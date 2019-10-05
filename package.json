@@ -46,7 +46,9 @@
       "plugin:import/errors",
       "plugin:import/warnings"
     ],
-    "rules": {},
+    "rules": {
+      "class-methods-use-this": "off"
+    },
     "plugins": [
       "security",
       "import"
