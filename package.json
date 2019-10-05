@@ -21,6 +21,7 @@
     "better-sqlite3": "^5.4.3",
     "body-parser": "^1.19.0",
     "express": "^4.16.4",
+    "husky": "^3.0.8",
     "swagger-ui-express": "^4.1.1"
   },
   "devDependencies": {
@@ -60,5 +61,10 @@
       "text",
       "text-summary"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run test:coverage"
+    }
   }
 }
