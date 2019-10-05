@@ -1,7 +1,11 @@
-'use strict';
+const Database = require('better-sqlite3');
 
-module.exports = (db) => {
-    const createRideTableSchema = `
+module.exports = () => {
+  const db = new Database(null, {
+    memory: true,
+  });
+
+  const createRideTableSchema = `
         CREATE TABLE Rides
         (
         rideID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -16,7 +20,5 @@ module.exports = (db) => {
         )
     `;
 
-    db.run(createRideTableSchema);
-
-    return db;
+  return db.exec(createRideTableSchema);
 };
