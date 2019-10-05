@@ -27,7 +27,7 @@ describe('[INTEGRATION] [RIDES] [POST] - /rides', () => {
     it('Should return validation error when startLat is invalid', () => {
       const expectedErrorResponse = new BadRequestHttpError(
         'VALIDATION_ERROR',
-        'Start latitude and longitude must be between -90 to 90 and -180 to 180 degrees respectively'
+        'Start latitude and longitude must be between -90 to 90 and -180 to 180 degrees respectively',
       );
 
       return request(app)
@@ -43,7 +43,7 @@ describe('[INTEGRATION] [RIDES] [POST] - /rides', () => {
     it('Should return validation error when startLong is invalid', () => {
       const expectedErrorResponse = new BadRequestHttpError(
         'VALIDATION_ERROR',
-        'Start latitude and longitude must be between -90 to 90 and -180 to 180 degrees respectively'
+        'Start latitude and longitude must be between -90 to 90 and -180 to 180 degrees respectively',
       );
 
       return request(app)
@@ -58,7 +58,7 @@ describe('[INTEGRATION] [RIDES] [POST] - /rides', () => {
     it('Should return validation error when endLat is invalid', () => {
       const expectedErrorResponse = new BadRequestHttpError(
         'VALIDATION_ERROR',
-        'End latitude and longitude must be between -90 to 90 and -180 to 180 degrees respectively'
+        'End latitude and longitude must be between -90 to 90 and -180 to 180 degrees respectively',
       );
 
       return request(app)
@@ -74,7 +74,7 @@ describe('[INTEGRATION] [RIDES] [POST] - /rides', () => {
     it('Should return validation error when endLong is invalid', () => {
       const expectedErrorResponse = new BadRequestHttpError(
         'VALIDATION_ERROR',
-        'End latitude and longitude must be between -90 to 90 and -180 to 180 degrees respectively'
+        'End latitude and longitude must be between -90 to 90 and -180 to 180 degrees respectively',
       );
 
       return request(app)
@@ -90,7 +90,7 @@ describe('[INTEGRATION] [RIDES] [POST] - /rides', () => {
     it('Should return validation error when endLong is invalid', () => {
       const expectedErrorResponse = new BadRequestHttpError(
         'VALIDATION_ERROR',
-        'End latitude and longitude must be between -90 to 90 and -180 to 180 degrees respectively'
+        'End latitude and longitude must be between -90 to 90 and -180 to 180 degrees respectively',
       );
 
       return request(app)
@@ -106,9 +106,9 @@ describe('[INTEGRATION] [RIDES] [POST] - /rides', () => {
     it('Should return validation error when riderName is invalid string', () => {
       const expectedErrorResponse = new BadRequestHttpError(
         'VALIDATION_ERROR',
-        'Rider name must be a non empty string'
+        'Rider name must be a non empty string',
       );
-      
+
       return request(app)
         .post('/rides')
         .send({
@@ -122,9 +122,9 @@ describe('[INTEGRATION] [RIDES] [POST] - /rides', () => {
     it('Should return validation error when driverName is invalid string', () => {
       const expectedErrorResponse = new BadRequestHttpError(
         'VALIDATION_ERROR',
-        'Driver name must be a non empty string'
+        'Driver name must be a non empty string',
       );
-      
+
       return request(app)
         .post('/rides')
         .send({
@@ -138,7 +138,7 @@ describe('[INTEGRATION] [RIDES] [POST] - /rides', () => {
     it('Should return validation error when driverVehicle is invalid string', () => {
       const expectedErrorResponse = new BadRequestHttpError(
         'VALIDATION_ERROR',
-        'Driver vehicle must be a non empty string'
+        'Driver vehicle must be a non empty string',
       );
 
       return request(app)
@@ -153,15 +153,13 @@ describe('[INTEGRATION] [RIDES] [POST] - /rides', () => {
   });
 
   describe('Success', () => {
-    it('Should return success response when request is valid', () => {
-      return request(app)
-        .post('/rides')
-        .send(payload)
-        .expect('Content-Type', /application\/json/)
-        .expect(200)
-        .expect((res) => {
-          expect(res.body).includes(payload);
-        });
-    });
+    it('Should return success response when request is valid', () => request(app)
+      .post('/rides')
+      .send(payload)
+      .expect('Content-Type', /application\/json/)
+      .expect(200)
+      .expect((res) => {
+        expect(res.body).includes(payload);
+      }));
   });
 });
