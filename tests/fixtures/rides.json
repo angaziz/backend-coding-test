@@ -1,0 +1,29 @@
+[
+  {
+    "startLat": -6.21873,
+    "startLong": 106.82376,
+    "endLat": -6.229807,
+    "endLong": 106.827727,
+    "riderName": "Anggie Aziz",
+    "driverName": "Yusuf Triwanto",
+    "driverVehicle": "Ducati Multistrada 1260"
+  },
+  {
+    "startLat": -6.21873,
+    "startLong": 106.82376,
+    "endLat": -6.229807,
+    "endLong": 106.827727,
+    "riderName": "Steve Jobs",
+    "driverName": "Yusuf Triwanto",
+    "driverVehicle": "Ducati Multistrada 1260"
+  },
+  {
+    "startLat": -6.21873,
+    "startLong": 106.82376,
+    "endLat": -6.229807,
+    "endLong": 106.827727,
+    "riderName": "Bill Gates",
+    "driverName": "Yusuf Triwanto",
+    "driverVehicle": "Ducati Multistrada 1260"
+  }
+]
