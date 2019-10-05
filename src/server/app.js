@@ -7,18 +7,13 @@ const {
 const services = require('../services');
 const routes = require('../routes');
 const dbLoader = require('./db');
+const initLogger = require('./logger');
 
 module.exports = async () => {
   const db = await dbLoader();
 
   const app = express();
-  const logger = {
-    error: (err) => {
-      if (process.env.NODE_ENV !== 'test') {
-        console.log(err);
-      }
-    },
-  };
+  const logger = initLogger();
 
   // Third-party middlewares
   app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -33,7 +28,7 @@ module.exports = async () => {
     if (err instanceof HttpError) {
       return res.status(err.httpCode).json(err.getBody());
     }
-
+    
     return res.status(500).json({
       errorCode: 'INTERNAL_SERVER',
       message: 'Please contact us for further support',
@@ -44,12 +39,16 @@ module.exports = async () => {
   const ridesService = new services.RidesService(db, logger);
   // const userService = new services.User(models.users);
 
-  app.locals.services = {
-    rides: ridesService,
-  };
+  Object.assign(app.locals, {
+    logger,
+    services: {
+      rides: ridesService,
+    },
+  });
 
   return {
     app,
     db,
+    logger,
   };
 };

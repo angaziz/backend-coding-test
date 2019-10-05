@@ -97,6 +97,7 @@ class RidesService {
    */
   async create(payload) {
     try {
+      this.logger.info(`Creating ride of ${payload.riderName} with ${payload.driverName} using ${payload.driverVehicle}`);
       this.isValidPayload(payload);
 
       const values = [
@@ -131,6 +132,7 @@ class RidesService {
    */
   async getList() {
     try {
+      this.logger.info('Listing created rides');
       const rides = await this.db.prepare('SELECT * FROM Rides').all();
 
       if (rides.length === 0) {
@@ -156,6 +158,7 @@ class RidesService {
    */
   async getById(rideID) {
     try {
+      this.logger.info(`Get ride detail of ${rideID}`);
       const ride = await this.db.prepare('SELECT * FROM Rides WHERE rideID = ?').get(rideID);
 
       if (!ride) {

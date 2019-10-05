@@ -36,7 +36,10 @@ describe('[INTEGRATION] [RIDES] [GET] - /rides', () => {
   describe('Success', () => {
     before(async () => {
       // Preparing data for success case
-      const rideService = new RidesService(db, {});
+      const rideService = new RidesService(db, {
+        info: () => {},
+        error: () => {},
+      });
       for (let i = 0; i < ridesFixture.length; i += 1) {
         // eslint-disable-next-line no-await-in-loop
         await rideService.create(ridesFixture[i]);

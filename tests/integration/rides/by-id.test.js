@@ -1,6 +1,3 @@
-const {
-  expect,
-} = require('chai');
 const request = require('supertest');
 const buildApp = require('../../../src/server/app');
 const {
@@ -36,7 +33,10 @@ describe('[INTEGRATION] [RIDES] [GET] - /rides/:rideID', () => {
   describe('Success', () => {
     before(async () => {
       // Preparing data for success case
-      const rideService = new RidesService(db, {});
+      const rideService = new RidesService(db, {
+        info: () => {},
+        error: () => {},
+      });
       for (let i = 0; i < ridesFixture.length; i += 1) {
         // eslint-disable-next-line no-await-in-loop
         await rideService.create(ridesFixture[i]);
