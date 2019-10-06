@@ -6,14 +6,14 @@ const {
 } = require('../helpers/http-errors'); // adopting lodash style, allowing us to directly load the specific dir, but also able to load the parent for more
 const services = require('../services');
 const routes = require('../routes');
-const dbLoader = require('./db');
-const initLogger = require('./logger');
+const buildDb = require('./db');
+const buildLogger = require('./logger');
 
 module.exports = async () => {
-  const db = await dbLoader();
+  const db = await buildDb();
 
   const app = express();
-  const logger = initLogger();
+  const logger = buildLogger();
 
   // Third-party middlewares
   app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
