@@ -82,6 +82,28 @@ describe('[UNIT] [SERVICES] [CLASS] RidesService', () => {
         expect(rides.length).to.equals(3);
       });
     });
+
+    describe('Security', () => {
+      beforeEach(() => {
+        dbMock.all.resetHistory();
+      });
+
+      it('Should set offset=0 when offset is injected with malicious characters', async () => {
+        dbMock.all.resolves(ridesFixture);
+
+        await ridesService.getList("5'", 10);
+
+        expect(dbMock.all.withArgs([10, 0]).calledOnce).to.be.true;
+      });
+
+      it('Should set limit=10 when limit is injected with malicious characters', async () => {
+        dbMock.all.resolves(ridesFixture);
+
+        await ridesService.getList(0, "20'");
+
+        expect(dbMock.all.withArgs([10, 0]).calledOnce).to.be.true;
+      });
+    });
   });
 
   describe('getById', () => {
