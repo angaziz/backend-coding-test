@@ -51,4 +51,18 @@ describe('[INTEGRATION] [RIDES] [GET] - /rides/:rideID', () => {
         .expect(200);
     });
   });
+
+  describe('Security', () => {
+    it('Should return not found error when the rideID is injected with malicious characters', () => {
+      const expectedErrorResponse = new NotFoundHttpError(
+        'RIDES_NOT_FOUND_ERROR',
+        'Could not find any rides',
+      );
+
+      return request(app)
+        .get('/rides/1\' OR TRUE--')
+        .expect('Content-Type', /application\/json/)
+        .expect(404, expectedErrorResponse.getBody());
+    });
+  });
 });

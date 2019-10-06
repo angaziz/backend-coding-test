@@ -134,10 +134,10 @@ class RidesService {
    */
   async getList(offset = 0, limit = 10) {
     try {
-      this.logger.info('Listing created rides');
+      this.logger.info(`Listing created rides with offset=${offset} and limit=${limit}`);
       const rides = await this.db.prepare('SELECT * FROM Rides LIMIT ? OFFSET ?').all([
-        limit,
-        offset,
+        Number(limit) || 10,
+        Number(offset) || 0,
       ]);
 
       if (rides.length === 0) {

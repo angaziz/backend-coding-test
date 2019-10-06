@@ -75,4 +75,34 @@ describe('[INTEGRATION] [RIDES] [GET] - /rides', () => {
         });
     });
   });
+
+  describe('Security', () => {
+    it('Should process with default pagination offset and limit numbers when offset is injected with malicious characters', () => {
+      return request(app)
+        .get('/rides')
+        .query({
+          offset: "0'",
+          limit: 5,
+        })
+        .expect('Content-Type', /application\/json/)
+        .expect(200)
+        .then((res) => {
+          expect(res.body.data.length).to.equals(3);
+        });
+    });
+
+    it('Should process with default pagination offset and limit numbers when limit is injected with malicious characters', () => {
+      return request(app)
+        .get('/rides')
+        .query({
+          offset: 0,
+          limit: "5'",
+        })
+        .expect('Content-Type', /application\/json/)
+        .expect(200)
+        .then((res) => {
+          expect(res.body.data.length).to.equals(3);
+        });
+    });
+  });
 });

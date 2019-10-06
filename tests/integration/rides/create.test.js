@@ -149,4 +149,21 @@ describe('[INTEGRATION] [RIDES] [POST] - /rides', () => {
         });
     });
   });
+
+  describe('Security', () => {
+    it('Should sanitize the payload when attackers tried to input malicious characters into the payload', () => {
+      const harmfulPayload = {
+        ...payload,
+        riderName: "Anggie' Aziz",
+      };
+      return request(app)
+        .post('/rides')
+        .send(harmfulPayload)
+        .expect('Content-Type', /application\/json/)
+        .expect(200)
+        .expect((res) => {
+          expect(res.body).includes(harmfulPayload);
+        });
+    });
+  });
 });
