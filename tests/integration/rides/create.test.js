@@ -153,13 +153,15 @@ describe('[INTEGRATION] [RIDES] [POST] - /rides', () => {
   });
 
   describe('Success', () => {
-    it('Should return success response when request is valid', () => request(app)
-      .post('/rides')
-      .send(payload)
-      .expect('Content-Type', /application\/json/)
-      .expect(200)
-      .expect((res) => {
-        expect(res.body).includes(payload);
-      }));
+    it('Should return success response when request is valid', () => {
+      return request(app)
+        .post('/rides')
+        .send(payload)
+        .expect('Content-Type', /application\/json/)
+        .expect(200)
+        .expect((res) => {
+          expect(res.body).includes(payload);
+        });
+    });
   });
 });

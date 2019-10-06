@@ -47,7 +47,8 @@
       "plugin:import/warnings"
     ],
     "rules": {
-      "class-methods-use-this": "off"
+      "class-methods-use-this": "off",
+      "arrow-body-style": "off"
     },
     "plugins": [
       "security",
@@ -63,11 +64,19 @@
     "reporter": [
       "text",
       "text-summary"
+    ],
+    "all": true,
+    "include": [
+      "src/**"
+    ],
+    "exclude": [
+      "src/index.js",
+      "src/server/**"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run test:coverage"
+      "pre-push": "npm run test:lint && npm run test:coverage"
     }
   }
 }

@@ -47,12 +47,32 @@ describe('[INTEGRATION] [RIDES] [GET] - /rides', () => {
       }
     });
 
-    it('Should return list of rides when the data is exist', () => request(app)
-      .get('/rides')
-      .expect('Content-Type', /application\/json/)
-      .expect(200)
-      .expect((res) => {
-        expect(res.body.length, 3);
-      }));
+    it('Should return list of rides with the requested number of records when the data is exist', () => {
+      return request(app)
+        .get('/rides')
+        .query({
+          offset: 0,
+          limit: 2,
+        })
+        .expect('Content-Type', /application\/json/)
+        .expect(200)
+        .then((res) => {
+          expect(res.body.data.length).to.equals(2);
+        });
+    });
+
+    it('Should return list of rides with the available number of records when the request is exceeded the available number of records', () => {
+      return request(app)
+        .get('/rides')
+        .query({
+          offset: 0,
+          limit: 5,
+        })
+        .expect('Content-Type', /application\/json/)
+        .expect(200)
+        .then((res) => {
+          expect(res.body.data.length).to.equals(3);
+        });
+    });
   });
 });

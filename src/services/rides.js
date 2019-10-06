@@ -128,12 +128,17 @@ class RidesService {
   /**
    * Get list of rides
    *
+   * @param {number} offset - pagination offset
+   * @param {number} limit - pagination limit
    * @returns {Promise} Promise array of ride objects
    */
-  async getList() {
+  async getList(offset = 0, limit = 10) {
     try {
       this.logger.info('Listing created rides');
-      const rides = await this.db.prepare('SELECT * FROM Rides').all();
+      const rides = await this.db.prepare('SELECT * FROM Rides LIMIT ? OFFSET ?').all([
+        limit,
+        offset,
+      ]);
 
       if (rides.length === 0) {
         throw new NotFoundHttpError(
