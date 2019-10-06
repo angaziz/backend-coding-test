@@ -44,9 +44,11 @@ describe('[INTEGRATION] [RIDES] [GET] - /rides/:rideID', () => {
       }
     });
 
-    it('Should return list of rides when the data is exist', () => request(app)
-      .get('/rides/1')
-      .expect('Content-Type', /application\/json/)
-      .expect(200));
+    it('Should return list of rides when the data is exist', () => {
+      return request(app)
+        .get('/rides/1')
+        .expect('Content-Type', /application\/json/)
+        .expect(200);
+    });
   });
 });

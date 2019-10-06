@@ -71,6 +71,12 @@
             "schema": {
               "$ref": "#/definitions/CreateRideResponseSuccess"
             }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationErrorResponse"
+            }
           }
         }
       },
@@ -81,11 +87,33 @@
         "summary": "List of ride",
         "description": "",
         "operationId": "getRides",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset number of the records to be shown, starting from: 0",
+            "type": "integer",
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit of how many records to be shown",
+            "type": "integer",
+            "default": 10
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
             "schema": {
               "$ref": "#/definitions/ListRideResponseSuccess"
+            }
+          },
+          "404": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/NotFoundErrorResponse"
             }
           }
         }
@@ -114,12 +142,44 @@
             "schema": {
               "$ref": "#/definitions/DetailRideResponseSuccess"
             }
+          },
+          "404": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/NotFoundErrorResponse"
+            }
           }
         }
       }
     }
   },
   "definitions": {
+    "ValidationErrorResponse": {
+      "type": "object",
+      "properties": {
+        "errorCode": {
+          "type": "string",
+          "example": "SOME_VALIDATION_ERROR_CODE"
+        },
+        "message": {
+          "type": "string",
+          "example": "Some error message of the invalid request"
+        }
+      }
+    },
+    "NotFoundErrorResponse": {
+      "type": "object",
+      "properties": {
+        "errorCode": {
+          "type": "string",
+          "example": "SOME_NOT_FOUND_ERROR_CODE"
+        },
+        "message": {
+          "type": "string",
+          "example": "Some error message of the not found resource"
+        }
+      }
+    },
     "GetHealthCheckResponseSuccess": {
       "type": "object",
       "properties": {
@@ -211,9 +271,27 @@
       "$ref": "#/definitions/RideData"
     },
     "ListRideResponseSuccess": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/RideData"
+      "type": "object",
+      "properties": {
+        "paginationMeta": {
+          "type": "object",
+          "properties": {
+            "offset": {
+              "type": "integer",
+              "example": 0
+            },
+            "limit": {
+              "type": "integer",
+              "example": 10
+            }
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RideData"
+          }
+        }
       }
     },
     "DetailRideResponseSuccess": {
