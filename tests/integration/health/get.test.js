@@ -1,7 +1,7 @@
 const request = require('supertest');
 const buildApp = require('../../../src/server/app');
 
-describe('[GET] - /health', () => {
+describe('[INTEGRATION] [HEALTH] [GET] - /health', () => {
   let app;
 
   before(async () => {

@@ -7,9 +7,13 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "NODE_ENV=test mocha tests --recursive",
-    "test:coverage": "nyc npm run test",
+    "test": "npm run test:unit && npm run test:integration",
+    "test:coverage": "nyc --clean npm run test",
     "test:lint": "eslint src tests",
+    "test:unit": "NODE_ENV=test mocha tests/unit --recursive",
+    "test:unit-coverage": "nyc --clean -x src/routes -x src/server -x src/index.js npm run test:unit",
+    "test:integration": "NODE_ENV=test mocha tests/integration --recursive",
+    "test:integration-coverage": "nyc --clean npm run test:integration",
     "start": "node src/index.js"
   },
   "keywords": [
@@ -33,6 +37,7 @@
     "eslint-plugin-security": "^1.4.0",
     "mocha": "^6.1.4",
     "nyc": "^14.1.1",
+    "sinon": "^7.5.0",
     "supertest": "^4.0.2"
   },
   "eslintConfig": {
@@ -48,7 +53,8 @@
     ],
     "rules": {
       "class-methods-use-this": "off",
-      "arrow-body-style": "off"
+      "arrow-body-style": "off",
+      "no-unused-expressions": "off"
     },
     "plugins": [
       "security",

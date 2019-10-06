@@ -55,6 +55,7 @@ describe('[INTEGRATION] [RIDES] [POST] - /rides', () => {
         .expect('Content-Type', /application\/json/)
         .expect(400, expectedErrorResponse.getBody());
     });
+
     it('Should return validation error when endLat is invalid', () => {
       const expectedErrorResponse = new BadRequestHttpError(
         'VALIDATION_ERROR',
@@ -66,22 +67,6 @@ describe('[INTEGRATION] [RIDES] [POST] - /rides', () => {
         .send({
           ...payload,
           endLat: 200,
-        })
-        .expect('Content-Type', /application\/json/)
-        .expect(400, expectedErrorResponse.getBody());
-    });
-
-    it('Should return validation error when endLong is invalid', () => {
-      const expectedErrorResponse = new BadRequestHttpError(
-        'VALIDATION_ERROR',
-        'End latitude and longitude must be between -90 to 90 and -180 to 180 degrees respectively',
-      );
-
-      return request(app)
-        .post('/rides')
-        .send({
-          ...payload,
-          endLong: 200,
         })
         .expect('Content-Type', /application\/json/)
         .expect(400, expectedErrorResponse.getBody());
