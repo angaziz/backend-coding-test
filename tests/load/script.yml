@@ -1,0 +1,39 @@
+config:
+  target: "http://0.0.0.0:8010"
+  phases:
+    - duration: 30
+      arrivalRate: 150
+  ensure:
+    p99: 50
+  payload:
+    path: "create-rides.csv"
+    fields:
+      - "startLat"
+      - "startLong"
+      - "endLat"
+      - "endLong"
+      - "riderName"
+      - "driverName"
+      - "driverVehicle"
+scenarios:
+  - name: "Create and get the ride detail"
+    flow:
+      - post:
+          url: "/rides"
+          json:
+            startLat: "{{ startLat }}"
+            startLong: "{{ startLong }}"
+            endLat: "{{ endLat }}"
+            endLong: "{{ endLong }}"
+            riderName: "{{ riderName }}"
+            driverName: "{{ driverName }}"
+            driverVehicle: "{{ driverVehicle }}"
+          capture:
+            json: "$.rideID"
+            as: "createdRideID"
+      - get:
+          url: "/rides/{{ createdRideID }}"
+  - name: "Get ride list"
+    flow:
+      - get:
+          url: "/rides?offset=0&limit=100"
