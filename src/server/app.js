@@ -3,7 +3,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 const {
   HttpError,
-} = require('../helpers/http-errors'); // adopting lodash style, allowing us to directly load the specific dir, but also able to load the parent for more
+} = require('../helpers/http-errors');
 const services = require('../services');
 const routes = require('../routes');
 const buildDb = require('./db');

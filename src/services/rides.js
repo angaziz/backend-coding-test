@@ -2,7 +2,7 @@
 const {
   BadRequestHttpError,
   NotFoundHttpError,
-} = require('../helpers/http-errors'); // adopting lodash style, allowing us to directly load the specific dir, but also able to load the parent for more
+} = require('../helpers/http-errors');
 
 class RidesService {
   constructor(db, logger) {
