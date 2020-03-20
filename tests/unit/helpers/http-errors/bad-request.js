@@ -9,7 +9,7 @@ const badRequestHttpError = new BadRequestHttpError('ERROR_CODE', 'Error message
 
 describe('[UNIT] [HELPERS] [HTTP ERRORS] [CLASS] BadRequestHttpError', () => {
   it('Should have "400" http code', () => {
-    expect(badRequestHttpError.httpCode).to.equals(400);
+    expect(badRequestHttpError.httpCode).to.equals(false);
   });
 
   it('Should return expected error body when requested', () => {
