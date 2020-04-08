@@ -1,0 +1,10 @@
+titleAndCommits: true
+commitsOnly: false
+titleOnly: false
+anyCommit: false
+types:
+  - feat
+  - fix
+  - refactor
+  - chore
+  - docs
