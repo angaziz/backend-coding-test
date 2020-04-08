@@ -1,0 +1,7 @@
+titleAndCommits: true
+types:
+  - feat
+  - fix
+  - refactor
+  - chore
+  - docs
